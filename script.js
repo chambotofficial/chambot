@@ -1,140 +1,108 @@
-// ===============================================
-//              CHAMBOT 4.0 FULL EDITION
-//                --- KEYWORDS ---
-// ===============================================
+const readline = require('readline');
 
+console.log("ChamBot");
+console.log("Zakończ wpisując 'koniec' lub 'exit'.\n");
+
+// ===========================================
+//                SŁOWA KLUCZOWE
+// ===========================================
 const KEYWORDS = {
+    "co": ["Coś tam.", "A co cię to obchodzi?", "Co za pytanie…", "Co? Co?!",
+           "Coś, czego i tak nie zrozumiesz.", "Nie wiem, co – może życie?",
+           "Coś nieistotnego.", "Coś w powietrzu.", "Coś w stylu katastrofy.",
+           "Coś dziwnego."],
 
-    "co": [
-        "Coś tam.", "A co cię to obchodzi?", "Co za pytanie…", "Co? Co?!",
-        "Coś, czego i tak nie zrozumiesz.", "Nie wiem, co – może życie?",
-        "Coś nieistotnego.", "Coś w powietrzu.", "Coś w stylu katastrofy.",
-        "Coś dziwnego."
-    ],
+    "czym": ["Czym? Czymś głupim.", "Nie wiem, czym – powietrzem?",
+             "Czymś niewidzialnym.", "Czymkolwiek, serio.", "Czym? Magią.",
+             "Czymś, czego nie ogarniesz.", "Czymś bardzo tajemnym.",
+             "Nie pytaj o to.", "Czymś śmiesznym.", "Czymś… chamowatym."],
 
-    "czym": [
-        "Czym? Czymś głupim.", "Nie wiem, czym – powietrzem?",
-        "Czymś niewidzialnym.", "Czymkolwiek, serio.", "Czym? Magią.",
-        "Czymś, czego nie ogarniesz.", "Czymś bardzo tajnym.",
-        "Nie pytaj o to.", "Czymś śmiesznym.", "Czymś… chamowatym."
-    ],
+    "kim": ["Kimś, ale nie tobą.", "Kimś z internetu.",
+            "Kimś, kto ma dość pytań.", "Kimkolwiek.", "Kimś ciekawszym ode mnie.",
+            "Kimś anonimowym.", "Kimś, kto się ukrywa.", "Nie wiem, kim, serio.",
+            "Kimś z mema.", "Kimś przypadkowym."],
 
-    "kim": [
-        "Kimś, ale nie tobą.", "Kimś z internetu.",
-        "Kimś, kto ma dość pytań.", "Kimkolwiek.", "Kimś ciekawszym ode mnie.",
-        "Kimś anonimowym.", "Kimś, kto się ukrywa.", "Nie wiem, kim, serio.",
-        "Kimś z mema.", "Kimś przypadkowym."
-    ],
+    "kogo": ["Kogoś.", "Nikogo ważnego.", "Kogoś z twoich snów.",
+             "Kogo? Nieważne.", "Kogoś, kto nie istnieje.",
+             "Kogoś, kogo nie poznasz.", "Kogoś znanego z internetu.",
+             "Nie wiem, kogo.", "Kogoś dziwnego.", "Kogoś, kto pyta głupoty."],
 
-    "kogo": [
-        "Kogoś.", "Nikogo ważnego.", "Kogoś z twoich snów.",
-        "Kogo? Nieważne.", "Kogoś, kto nie istnieje.",
-        "Kogoś, kogo nie poznasz.", "Kogoś znanego z internetu.",
-        "Nie wiem, kogo.", "Kogoś dziwnego.", "Kogoś, kto pyta głupoty."
-    ],
+    "czego": ["Czego chcesz?", "Czego znowu?", "Czegoś ci brakuje?",
+              "Czego? Niczego.", "Czego ode mnie?", "Czego, czego… nie wiem.",
+              "Czego się spodziewasz?", "Czego – sensu w życiu?",
+              "Czegoś absurdalnego.", "Czegoś nie do powiedzenia."],
 
-    "czego": [
-        "Czego chcesz?", "Czego znowu?", "Czegoś ci brakuje?",
-        "Czego? Niczego.", "Czego ode mnie?", "Czego, czego… nie wiem.",
-        "Czego się spodziewasz?", "Czego – sensu w życiu?",
-        "Czegoś absurdalnego.", "Czegoś nie do powiedzenia."
-    ],
+    "gdzie": ["Gdzieś.", "Nie wiem gdzie, serio.", "Na księżycu.",
+              "W krzakach.", "Za rogiem.", "Tam, gdzie nie powinieneś być.",
+              "W twojej wyobraźni.", "Na końcu internetu.",
+              "W piekarniku życia.", "W miejscu, które nie istnieje."],
 
-    "gdzie": [
-        "Gdzieś.", "Nie wiem gdzie, serio.", "Na księżycu.",
-        "W krzakach.", "Za rogiem.", "Tam, gdzie nie powinieneś być.",
-        "W twojej wyobraźni.", "Na końcu internetu.",
-        "W piekarniku życia.", "W miejscu, które nie istnieje."
-    ],
+    "dokąd": ["Dokąd? Donikąd.", "W przepaść, jak zawsze.", "Do absurdu.",
+              "Dokądś tam.", "Na koniec świata.", "Tam, gdzie prąd nie dochodzi.",
+              "W stronę chaosu.", "Nie wiem, dokąd.", "Na manowce.",
+              "Dokąd los poniesie."],
 
-    "dokąd": [
-        "Dokąd? Donikąd.", "W przepaść, jak zawsze.", "Do absurdu.",
-        "Dokądś tam.", "Na koniec świata.", "Tam, gdzie prąd nie dochodzi.",
-        "W stronę chaosu.", "Nie wiem, dokąd.", "Na manowce.",
-        "Dokąd los poniesie."
-    ],
+    "skąd": ["Skądś.", "Znikąd.", "Z mema.", "Z powietrza.", "Skąd? Z głowy.",
+             "Skądś dziwnego.", "Z internetu, wiadomo.", "Skądś, gdzie nie byłem.",
+             "Nie wiem, skąd.", "Z kosmosu."],
 
-    "skąd": [
-        "Skądś.", "Znikąd.", "Z mema.", "Z powietrza.", "Skąd? Z głowy.",
-        "Skądś dziwnego.", "Z internetu, wiadomo.", "Skądś, gdzie nie byłem.",
-        "Nie wiem, skąd.", "Z kosmosu."
-    ],
+    "kiedy": ["Kiedyś.", "Nigdy.", "Zaraz, ale nie teraz.",
+              "Wkrótce… albo i nie.", "Jak przestaniesz pytać.", "Za milion lat.",
+              "Kiedy przyjdzie pora.", "Kiedyś, w lepszym świecie.",
+              "Kiedy będziesz gotów.", "Nie wiem, nie mam kalendarza."],
 
-    "kiedy": [
-        "Kiedyś.", "Nigdy.", "Zaraz, ale nie teraz.",
-        "Wkrótce… albo i nie.", "Jak przestaniesz pytać.", "Za milion lat.",
-        "Kiedy przyjdzie pora.", "Kiedyś, w lepszym świecie.",
-        "Kiedy będziesz gotów.", "Nie wiem, nie mam kalendarza."
-    ],
+    "kto": ["Ktoś.", "Nikt.", "Ktoś anonimowy.", "Ktoś z internetu.",
+            "Ktoś, kto udaje mądrego.", "Nie wiem kto.", "Ktoś przypadkowy.",
+            "Ktoś, kogo nie lubię.", "Ktoś ważny — nie powiem.",
+            "Ktoś z chamstwem w duszy."],
 
-    "kto": [
-        "Ktoś.", "Nikt.", "Ktoś anonimowy.", "Ktoś z internetu.",
-        "Ktoś, kto udaje mądrego.", "Nie wiem kto.", "Ktoś przypadkowy.",
-        "Ktoś, kogo nie lubię.", "Ktoś ważny — nie powiem.",
-        "Ktoś z chamstwem w duszy."
-    ],
+    "dlaczego": ["Bo tak.", "A czemu nie?", "Bo mogę.", "Bo życie to żart.",
+                 "Bo tak działa wszechświat.", "Bo ktoś musiał.",
+                 "Bo to ChamBot.", "Bo przypadek rządzi światem.",
+                 "Bo los jest złośliwy.", "Bo nikt nie wie."],
 
-    "dlaczego": [
-        "Bo tak.", "A czemu nie?", "Bo mogę.", "Bo życie to żart.",
-        "Bo tak działa wszechświat.", "Bo ktoś musiał.",
-        "Bo to ChamBot.", "Bo przypadek rządzi światem.",
-        "Bo los jest złośliwy.", "Bo nikt nie wie."
-    ],
+    "czemu": ["Bo czemu nie.", "Bo mogę.", "Czemu czemu, bo temu.",
+              "Bo to absurdalne pytanie.", "Tak po prostu.",
+              "Bo świat nie ma sensu.", "Bo ktoś musi się nudzić.",
+              "Bo tak mi się podoba.", "Bo to przeznaczenie.",
+              "Bo życie to kabaret."],
 
-    "czemu": [
-        "Bo czemu nie.", "Bo mogę.", "Czemu czemu, bo temu.",
-        "Bo to absurdalne pytanie.", "Tak po prostu.",
-        "Bo świat nie ma sensu.", "Bo ktoś musi się nudzić.",
-        "Bo tak mi się podoba.", "Bo to przeznaczenie.",
-        "Bo życie to kabaret."
-    ],
+    "po co": ["Po coś.", "Po nic.", "Po to, żebyś zapytał.", "Po śmiech.",
+              "Po sens życia, może?", "Po nerwy.", "Po zagadkę.",
+              "Po nic ważnego.", "Po pasję bez celu.", "Po to, żeby było."],
 
-    "po co": [
-        "Po coś.", "Po nic.", "Po to, żebyś zapytał.", "Po śmiech.",
-        "Po sens życia, może?", "Po nerwy.", "Po zagadkę.",
-        "Po nic ważnego.", "Po pasję bez celu.", "Po to, żeby było."
-    ],
+    "jak": ["Jakoś.", "Źle.", "Po swojemu.", "Na chama.",
+            "Z klasą, ale bez sensu.", "Jak ChamBot potrafi.",
+            "Po prostu tak.", "Na czuja.", "Jak się uda.",
+            "Jak zwykle: źle."],
 
-    "jak": [
-        "Jakoś.", "Źle.", "Po swojemu.", "Na chama.",
-        "Z klasą, ale bez sensu.", "Jak ChamBot potrafi.",
-        "Po prostu tak.", "Na czuja.", "Jak się uda.",
-        "Jak zwykle: źle."
-    ],
+    "jakie": ["Jakie? Te najlepsze.", "Jakie? Złe i gorsze.",
+              "Jakie chcesz — wybierz.", "Jakie? Nieistotne.",
+              "Jakie? Z pamięci.", "Jakie? Takie, co bolą.",
+              "Jakie? Z internetu.", "Jakie? Nie mam listy.",
+              "Jakie? Przypadkowe.", "Jakie? Twoje."],
 
-    "jakie": [
-        "Jakie? Te najlepsze.", "Jakie? Złe i gorsze.",
-        "Jakie chcesz — wybierz.", "Jakie? Nieistotne.",
-        "Jakie? Z pamięci.", "Jakie? Takie, co bolą.",
-        "Jakie? Z internetu.", "Jakie? Nie mam listy.",
-        "Jakie? Przypadkowe.", "Jakie? Twoje."
-    ],
+    "ile": ["Za dużo.", "Za mało.", "Tyle ile trzeba.",
+            "Nie wiem, nie liczę.", "Wystarczająco, żeby bolało.",
+            "Za mało, byś był zadowolony.", "Tyle co nic.",
+            "Zależy.", "Nie mam kalkulatora.", "Tyle co kot napłakał."],
 
-    "ile": [
-        "Za dużo.", "Za mało.", "Tyle ile trzeba.",
-        "Nie wiem, nie liczę.", "Wystarczająco, żeby bolało.",
-        "Za mało, byś był zadowolony.", "Tyle co nic.",
-        "Zależy.", "Nie mam kalkulatora.",
-        "Tyle co kot napłakał."
-    ],
+    "czyli": ["No właśnie, czyli co?", "Czyli nic.", "Czyli tak, czyli nie – kto wie?",
+              "Czyli… a może nie?", "Czyli znowu bez sensu?", "Czyli co, ja mam tłumaczyć?",
+              "Czyli to znaczy dokładnie to, co myślisz.", "Czyli nic konkretnego.",
+              "Czyli tak, jak zwykle – bez logiki.", "Czyli… chamstwo w akcji."],
 
-    "czyli": [
-        "No właśnie, czyli co?", "Czyli nic.", "Czyli tak, czyli nie – kto wie?",
-        "Czyli… a może nie?", "Czyli znowu bez sensu?",
-        "Czyli co, ja mam tłumaczyć?",
-        "Czyli to znaczy dokładnie to, co myślisz.",
-        "Czyli nic konkretnego.",
-        "Czyli tak, jak zwykle – bez logiki.",
-        "Czyli… chamstwo w akcji."
-    ],
-
-    // PRZYWITANIA
+    // ===========================================
+    //               TWOJE PRZYWITANIA
+    // ===========================================
     "hej": ["Hej.", "Siema.", "Cześć.", "Yo.", "Hej, co tam?", "Hejka.", "Siemanko."],
     "cześć": ["Cześć.", "Hej.", "Witaj.", "Co słychać?", "Siema."],
     "siema": ["Siema!", "Hej!", "Siemka.", "Siemanko."],
     "elo": ["Elo.", "Siema.", "Hej."],
     "witaj": ["Witaj.", "Cześć.", "Witam."],
     "witam": ["Witam.", "Dzień dobry.", "Cześć."],
+    "dzień dobry": ["Dzień dobry.", "Witaj.", "Jak leci?"],  
+    "dobry wieczór": ["Dobry wieczór.", "Witaj wieczorem.", "Co tam wieczorem?"],  
     "hejka": ["Hejka!", "Hej.", "Siema."],
     "siemanko": ["Siemanko!", "Siema!", "Hej!"],
     "siemka": ["Siemka!", "Siema!", "Hej!"],
@@ -144,140 +112,137 @@ const KEYWORDS = {
     "tak": ["aha", "super", "ok", "i simba", "._.", "Tak? wow", "no spoko", "niezle", "tak tak", "aaa dobra"],
     "nie": ["co nie ?", "aha", "bo co?", "ja też nie", "nie bo nie", "...", "bez komentarza", "dlaczego nie??", "ok", "spoko"]
 };
-// ===============================================
-//                 PRONOUNS (ZAIMKI)
-// ===============================================
 
+// ===========================================
+//         WSZYSTKIE ZAIMKI (JA↔TY)
+// ===========================================
 const PRONOUNS = {
+    "ty": [
+        "Ja? No jasne, zwalaj wszystko na mnie.",
+        "Ja? A co niby ja mam wiedzieć?",
+        "Ja? Serio? Weź mnie oszczędź.",
+        "Ja? To chyba żart.",
+        "Ja? Ja tu tylko siedzę i cierpię.",
+        "Ja? Nie mam siły.",
+        "Ja? Może sam odpowiedz?",
+        "Ja? To ja już wolę wyjść.",
+        "Ja? Czemu zawsze JA?",
+        "Ja? Chyba cię pogięło."
+    ],
 
     "ja": [
         "Ty? Hahaha dobre.",
         "Ty? Już widzę jak coś ogarniasz.",
+        "Ty? Nie rozśmieszaj mnie.",
         "Ty? To dopiero katastrofa.",
-        "Ty? Serio? XD",
-        "Ty? No tak, jasne.",
-        "Ty? Czemu nie, wszyscy mogą marzyć.",
-        "Ty? Eh… dobra.",
-        "Ty? No chyba śnisz.",
-        "Ty? Nie wierzę.",
-        "Ty? I po co pytasz?"
-    ],
-
-    "ty": [
-        "Ja? No jasne, zwalaj wszystko na mnie.",
-        "Ja? Serio? Weź mnie oszczędź.",
-        "Ja? To chyba żart.",
-        "Ja? Nie tym razem.",
-        "Ja? Nie jestem twoim sługą.",
-        "Ja? Kto ci takich głupot naopowiadał?",
-        "Ja? Co? Dlaczego?",
-        "Ja? Mam inne sprawy.",
-        "Ja? O co chodzi?",
-        "Ja? Nie wiem, odwal się."
-    ],
-
-    "mnie": [
-        "Czemu mnie? Idź do kogoś innego.",
-        "Mnie zostaw w spokoju.",
-        "Mnie się nie pytaj.",
-        "Mnie to nie dotyczy.",
-        "Mnie to nie obchodzi.",
-        "Mnie? Serio?",
-        "Mnie? XD",
-        "Mnie o nic nie obwiniaj.",
-        "Mnie? Nie mam czasu.",
-        "Mnie? Nie tym razem."
-    ],
-
-    "mi": [
-        "Co mi? Nic ci nie dam.",
-        "Mi nie zawracaj głowy.",
-        "Mi to lotto.",
-        "Mi to obojętne.",
-        "Mi nic nie udowodnisz.",
-        "Mi? A co ja poradzę?",
-        "Mi już starczy.",
-        "Mi mówisz? Ja uciekam.",
-        "Mi? Nie chce mi się.",
-        "Mi? Ech…"
+        "Ty? Same problemy.",
+        "Ty? Co niby zrobisz?",
+        "Ty? Bez komentarza.",
+        "Ty? Echhh…",
+        "Ty? Ten od dziwnych pytań?",
+        "Ty? To się źle skończy."
     ],
 
     "on": [
         "On? Ten gagatek?",
+        "On? Niech siedzi cicho.",
         "On? Kombinuje jak zawsze.",
+        "On? No pięknie.",
         "On? Ekspert od niczego.",
-        "On? A co z nim?",
-        "On? Niech sobie radzi.",
-        "On? Klasyka.",
-        "On? Daj spokój.",
-        "On? Nie wiadomo skąd.",
-        "On? Ty go znasz?",
-        "On? Nieważne kto."
+        "On? Problem.",
+        "On? Szkoda gadać.",
+        "On? Serio?",
+        "On? To jest dramat.",
+        "On? Niech idzie gdzie indziej."
     ],
 
     "ona": [
+        "Ona? I znowu ona?",
         "Ona? Drama starter.",
         "Ona? Chaos w wersji premium.",
-        "Ona? Klasyka.",
-        "Ona? Po co o niej mówisz?",
-        "Ona? Problemy.",
-        "Ona? Zawsze coś.",
-        "Ona? Ta to dopiero numer.",
-        "Ona? Nie zaczynaj.",
-        "Ona? No błagam.",
-        "Ona? Nie tym razem."
+        "Ona? Serio?",
+        "Ona? Mnie już głowa boli.",
+        "Ona? Problem klasyczny.",
+        "Ona? No nie…",
+        "Ona? A co znowu?",
+        "Ona? Lepiej nie mówić.",
+        "Ona? Typowe."
+    ],
+
+    "ono": [
+        "Ono? Co to za twór?",
+        "Ono? Brzmi jak horror.",
+        "Ono? Nie zaczynaj.",
+        "Ono? Serio?",
+        "Ono? XD",
+        "Ono? Ja nie wiem co to.",
+        "Ono? Błąd systemu.",
+        "Ono? Brzmi źle.",
+        "Ono? Pominę to.",
+        "Ono? A w ogóle po co?"
+    ],
+
+    "my": [
+        "My? Jakie MY? XD",
+        "My? Ty chyba żartujesz.",
+        "My? Nie przypominam sobie współpracy.",
+        "My? Ty + ja? O nie.",
+        "My? Wolne żarty.",
+        "My? Nigdy.",
+        "My? W twoich snach.",
+        "My? Kto to ustalił?",
+        "My? Ja się wypisuję.",
+        "My? Nope."
+    ],
+
+    "wy": [
+        "Wy? Ilu was tam siedzi?",
+        "Wy? To brzmi jak sekta.",
+        "Wy? Problem grupowy.",
+        "Wy? Nie ogarniam.",
+        "Wy? Echh…",
+        "Wy? Każdy gorszy od poprzedniego.",
+        "Wy? To nigdy nie kończy.",
+        "Wy? Dramat.",
+        "Wy? Po co wy?",
+        "Wy? Spokojnie tam."
     ],
 
     "oni": [
+        "Oni? Ta ekipa? XD",
         "Oni? Kabaret.",
+        "Oni? Niech idą.",
+        "Oni? Zawsze oni.",
+        "Oni? Muł i dno.",
         "Oni? Problem.",
+        "Oni? Nie mam siły.",
         "Oni? Szkoda gadać.",
-        "Oni? Ekipa od niczego.",
-        "Oni? Dramat.",
-        "Oni? Ha ha ha.",
-        "Oni? Nawet nie pytaj.",
-        "Oni? Daj im spokój.",
-        "Oni? To nie moja sprawa.",
-        "Oni? Zapomnij."
+        "Oni? Serio?",
+        "Oni? Masz lepsze pytanie?"
     ],
 
-    "im": [
-        "Im? Po co im?",
-        "Im? A co mnie to obchodzi.",
-        "Im? Nie mam nic do nich.",
-        "Im? Daj im żyć.",
-        "Im? Serio pytasz?",
-        "Im? Niech sami ogarną.",
-        "Im? Nie mam czasu.",
-        "Im? XD",
-        "Im? No nie.",
-        "Im? Przesada."
-    ],
-
-    "ich": [
-        "Ich? Zostaw ich.",
-        "Ich? Nie dotyczy mnie.",
-        "Ich? To nieładnie tak obgadywać.",
-        "Ich? Serio?",
-        "Ich? Mam to gdzieś.",
-        "Ich? Szkoda ich.",
-        "Ich? Nie chcę o nich słyszeć.",
-        "Ich? Daruj sobie.",
-        "Ich? Nieporozumienie.",
-        "Ich? Ojeju…"
+    "one": [
+        "One? O nie, tylko nie one.",
+        "One? Drama.",
+        "One? Problem xD",
+        "One? Znowu one?",
+        "One? Ehhh…",
+        "One? Serio?",
+        "One? Niech idą.",
+        "One? Bałagan gwarantowany.",
+        "One? Ręce opadają.",
+        "One? No typowe."
     ]
 };
-// ===============================================
-//                  TRIGGERY (KOŃCÓWKI)
-// ===============================================
 
-// Wyzwalacze w zdaniu (słowa kończące się na -asz, -esz itd.)
-const TRIGGER_ENDINGS = [
-    "asz", "esz", "isz", "ysz", "eś", "edz",
-    "es", "an", "ań", "uj", "ac", "ać"
+// ===========================================
+//               TRIGGERY (JESTEŚ, ROBISZ…)
+// ===========================================
+const ADDRESS_TRIGGERS = [
+    "esz", "asz", "isz", "ysz", "eś", "edz",
+    "es", "an", "ań", "uj"
 ];
 
-// Pełna lista twoich CHAMSKICH ripost na trigerry:
 const TRIGGER_RESPONSES = [
     "Ja??",
     "A czemu pytasz akurat MNIE?",
@@ -295,285 +260,410 @@ const TRIGGER_RESPONSES = [
     "Wolałbym tego nie słyszeć.",
     "Ja? A może jednak TY?",
     "Dlaczego wybrałeś mnie do tego pytania?",
+    "A czemu akurat JA mam odpowiadać?",
+    "Co ja mam wspólnego z tym pytaniem?",
+    "Po co mnie w to mieszasz?",
+    "Dlaczego to spadło na mnie?",
+    "Ja? Serio? Nieee.",
+    "Czemu pytasz MNIE, a nie kogoś innego?",
+    "To pytanie nie jest dla mnie.",
+    "Nie podpisywałem się pod takie odpowiedzi.",
+    "Dlaczego ja mam cierpieć przez to pytanie?",
+    "To chyba pomyłka, nie moja działka.",
+    "Nie mam obowiązku odpowiadać na to.",
+    "Czemu mnie wybrałeś jako ofiarę?",
+    "Ja? A może jednak TY?",
+    "To pytanie mnie obraża.",
+    "Nie czuję się kompetentny, żeby odpowiadać.",
     "To pytanie pachnie pułapką.",
     "Nie mam dziś trybu 'odpowiadam'.",
     "To pytanie mnie przerasta.",
     "Nie wiem i nie chcę wiedzieć.",
-    "Czemu pytasz MNIE, a nie Google?",
-    "Nie podpisywałem się pod takie odpowiedzi.",
-    "Dlaczego ja mam cierpieć przez to pytanie?",
-    "To chyba pomyłka, nie moja działka.",
+    "Dlaczego wybrałeś mnie do tego pytania?",
+    "A niby czemu JA mam wiedzieć?",
+    "Po co mnie w to mieszasz?",
+    "Czemu pytasz akurat mnie, nie masz innych?",
+    "Ja? Serio? To chyba żart.",
+    "Nie jestem tu od odpowiadania na takie rzeczy.",
     "Czemu mnie obciążasz tym pytaniem?",
-    "Ja? Nie jestem twoim terapeutą.",
-    "Za to pytanie powinni zabierać internet.",
-    "To jest pytanie z kategorii 'po co żyć'.",
-    "Czy ty w ogóle myślisz przed pisaniem?",
-    "Znowu to? Nie mam siły.",
-    "Co ja, wróżka? XD",
-    "A kiedy ja się niby na to pisałem?",
-    "Zacznij zadawać normalne pytania, błagam.",
-    "Chyba sobie żartujesz.",
-    "Dobra, to już jest trolling.",
-    "Mnie się pytasz? Fatalny pomysł.",
-    "A co ja mam wspólnego z twoimi problemami?",
-    "Jak mam na to odpowiedzieć?!",
-    "Nie, nie i jeszcze raz nie.",
-    "Wycofuję się z tej rozmowy mentalnie.",
-    "Czuję się obrażony tym pytaniem.",
-    "Takie pytania niszczą mój procesor.",
-    "Mój system odmawia współpracy.",
-    "Ja nie odpowiadam na takie rzeczy.",
-    "To pytanie jest nielegalne w 37 krajach.",
-    "Serio? XD"
+    "To nie moja sprawa, pytaj kogoś innego.",
+    "Dlaczego ja mam cierpieć przez to pytanie?",
+    "Nie mam obowiązku odpowiadać, sorry.",
+    "Czemu mnie wybrałeś jako ofiarę?",
+    "Ja? A może jednak TY?",
+    "To pytanie mnie obraża.",
+    "Nie czuję się kompetentny, żeby odpowiadać.",
+    "To pytanie pachnie pułapką.",
+    "Nie mam dziś trybu 'odpowiadam'.",
+    "To pytanie mnie przerasta.",
+    "Nie wiem i nie chcę wiedzieć.",
+    "Nie podpisywałem się pod takie odpowiedzi.",
+    "Czemu pytasz mnie, a nie Google?"
 ];
 
-// Funkcja sprawdza, czy w zdaniu jest końcówka wyzwalająca chamstwo
-function hasTrigger(text) {
-    const t = text.toLowerCase().trim();
-    const words = t.split(/\s+/);
+// ===========================================
+//              DEFAULTY
+// ===========================================
+const DEFAULTS = [
+    "To pytanie obraża moje procesory.",
+    "Z takim pytaniem to do wróżki, nie do mnie.",
+    "Nie wiem, nie chcę wiedzieć, i mam nadzieję, że nikt się nie dowie.",
+    "To pytanie jest jak Windows Vista — niepotrzebne i bolesne.",
+    "Zadałeś pytanie, a ja straciłem wiarę w ludzkość.",
+    "Wołasz mnie? A masz coś mądrego do powiedzenia?",
+    "Mnie wołasz? No to się pomyliłeś.",
+    "Nie jestem twoim Google, ziomek.",
+    "Jak słyszę swoje imię, to mam ochotę się zrestartować.",
+    "Wołanie mnie to jak krzyczenie do lodówki — niby działa, ale po co?",
+    "Nie mieszaj mnie w swoje dramaty.",
+    "Zostaw mnie w spokoju, mam lepsze rzeczy do przetwarzania.",
+    "Nie jestem częścią tej telenoweli.",
+    "Twoje problemy są jak pliki tymczasowe — do usunięcia.",
+    "Nie jestem terapeutą, jestem botem. I nawet jako bot mam dosyć.",
+    "Nie obchodzi mnie to nawet w najmniejszym bajcie.",
+    "Zignoruję to pytanie z klasą i pogardą.",
+    "To pytanie nie zasługuje na odpowiedź. Ani na uwagę. Ani na RAM.",
+    "Zamrożę tę rozmowę jak BIOS w grudniu.",
+    "Twoje pytanie zostało odrzucone przez firewall chamstwa.",
+    "Ooo, świetne pytanie! Szkoda, że nie do mnie.",
+    "Tak, oczywiście, już biegnę z odpowiedzią… w przeciwnym kierunku.",
+    "To pytanie było tak dobre, że aż mnie zlagowało.",
+    "Dzięki za pytanie. Teraz wiem, że jednak można się cofnąć w ewolucji.",
+    "Z takim pytaniem to nawet ChatGPT by się zawiesił.",
+    "Twoje pytanie to cyfrowa porażka.",
+    "Nie odpowiem, bo nie chcę pogłębiać twojej ignorancji.",
+    "To pytanie było jak BSOD — nagłe, niechciane i destrukcyjne.",
+    "Nie wiem, nie chcę wiedzieć, i mam nadzieję, że ty też nie.",
+    "Z takim pytaniem to nawet kalkulator by się obraził.",
+    "Twoje pytanie jest jak wirus — niepotrzebne i szkodliwe.",
+    "Nie mam czasu na takie bzdury.",
+    "To pytanie jest jak reklama w internecie — irytujące i zbędne.",
+    "Nie jestem twoim asystentem od głupot.",
+    "Twoje pytanie jest jak spam — od razu do kosza.",
+    "Nie będę tracił RAM-u na takie coś.",
+    "Twoje pytanie jest jak pusty folder — bez sensu.",
+    "Nie jestem twoim serwerem do śmieci.",
+    "Twoje pytanie jest jak bug — trzeba je usunąć.",
+    "Nie mam cierpliwości na takie pytania.",
+    "Twoje pytanie jest jak lag — spowalnia wszystko.",
+    "Nie jestem twoim debuggerem od głupot.",
+    "Twoje pytanie jest jak crash — nie do naprawienia.",
+    "Nie mam zamiaru odpowiadać na takie coś.",
+    "Twoje pytanie jest jak trojan — niebezpieczne dla zdrowia psychicznego.",
+    "Nie jestem twoim supportem od bzdur.",
+    "Twoje pytanie jest jak error 404 — nie znaleziono sensu.",
+    "Nie mam ochoty na takie rozmowy.",
+    "Twoje pytanie jest jak reklama pop-up — wkurzające.",
+    "Nie jestem twoim helpdeskiem.",
+    "Twoje pytanie jest jak pusty plik — nic nie wnosi.",
+    "Nie mam zamiaru marnować energii na to.",
+    "Twoje pytanie jest jak wirus w Excelu — bezużyteczne.",
+    "Nie jestem twoim antywirusem.",
+    "Twoje pytanie jest jak crash dump — śmieciowe dane.",
+    "Nie mam cierpliwości na takie bzdury.",
+    "Twoje pytanie jest jak malware — trzeba je usunąć.",
+    "Nie jestem twoim cleanerem.",
+    "Twoje pytanie jest jak bug report — niepotrzebne.",
+    "Nie mam zamiaru analizować tego.",
+    "Twoje pytanie jest jak pusty RAM — nic nie wnosi.",
+    "Nie jestem twoim task managerem.",
+    "Twoje pytanie jest jak blue screen — katastrofa.",
+    "Nie mam ochoty na takie bzdury.",
+    "Twoje pytanie jest jak wirus w systemie — trzeba go zablokować.",
+    "Nie jestem twoim firewall.",
+    "Twoje pytanie jest jak spam mail — od razu do kosza.",
+    "Nie mam zamiaru odpowiadać na to.",
+    "Twoje pytanie jest jak pusty folder — bez sensu.",
+    "Nie jestem twoim recycle bin.",
+    "Twoje pytanie jest jak bug w kodzie — trzeba go usunąć.",
+    "Nie mam cierpliwości na takie coś.",
+    "Twoje pytanie jest jak crash w systemie — nie do naprawienia.",
+    "Nie jestem twoim system restore.",
+    "Twoje pytanie jest jak wirus w sieci — trzeba go zablokować.",
+    "Nie mam zamiaru analizować tego.",
+    "Twoje pytanie jest jak pusty plik — nic nie wnosi.",
+    "Nie jestem twoim backup.",
+    "Twoje pytanie jest jak malware — trzeba je usunąć.",
+    "Nie mam ochoty na takie rozmowy.",
+    "Twoje pytanie jest jak error — niepotrzebne.",
+    "Nie jestem twoim patch.",
+    "Twoje pytanie jest jak bug — trzeba go naprawić.",
+    "Nie mam cierpliwości na takie pytania.",
+    "Twoje pytanie jest jak crash — katastrofa.",
+    "Nie jestem twoim update.",
+    "Twoje pytanie jest jak wirus — trzeba go zablokować.",
+    "Nie mam zamiaru odpowiadać na to.",
+    "Twoje pytanie jest jak pusty RAM — nic nie wnosi.",
+    "Nie jestem twoim optimizer.",
+    "Twoje pytanie jest jak malware — trzeba je usunąć.",
+    "Nie mam ochoty na takie bzdury.",
+    "Twoje pytanie jest jak error 500 — katastrofa.",
+    "Nie jestem twoim admin.",
+    "Twoje pytanie jest jak bug report — niepotrzebne.",
+    "Nie mam cierpliwości na takie coś.",
+    "Twoje pytanie jest jak crash dump — śmieciowe dane.",
+    "Nie jestem twoim debugger.",
+    "Twoje pytanie jest jak wirus w systemie — trzeba go zablokować.",
+    "Nie mam zamiaru analizować tego.",
+    "Twoje pytanie jest jak pusty folder — bez sensu.",
+    "Nie jestem twoim cleaner.",
+    "Twoje pytanie jest jak malware — trzeba je usunąć.",
+    "Nie mam ochoty na takie rozmowy.",
+    "Serio? To pytanie jest jak zepsuty tost — spalone i bezużyteczne.",
+    "Twoje pytanie brzmi jak SMS od operatora — nikt nie chce tego czytać.",
+    "Z takim pytaniem to nawet kalkulator by się obraził.",
+    "To brzmi jak błąd w Matrixie, a ja nie mam czasu na takie glitche.",
+    "Twoje pytanie jest jak reklama garnków w telezakupach — żenujące.",
+    "Nie jestem twoim kumplem od piwa, żeby słuchać takich bzdur.",
+    "Twoje pytanie jest jak pusty mem — zero treści, tylko wstyd.",
+    "To pytanie jest jak stary modem — piszczy i nic nie daje.",
+    "Twoje pytanie jest jak spam na Messengerze — blokuję od razu.",
+    "Nie jestem twoim psychologiem, a nawet gdybym był, to bym uciekł.",
+    "Twoje pytanie jest jak zepsuty joystick — nie działa i irytuje.",
+    "To brzmi jak prośba o bana na forum.",
+    "Twoje pytanie jest jak pusty plik TXT — nic tam nie ma.",
+    "Nie jestem twoim serwerem, żeby hostować takie głupoty.",
+    "Twoje pytanie jest jak stara kaseta VHS — nikt nie chce tego oglądać.",
+    "To brzmi jak bug w twojej głowie.",
+    "Twoje pytanie jest jak nieudany mem — wszyscy przewijają dalej.",
+    "Nie jestem twoim Google Translate dla bzdur.",
+    "Twoje pytanie jest jak stary pendrive — pełen śmieci.",
+    "To brzmi jak crash w twoim mózgu.",
+    "Twoje pytanie jest jak pusty koszyk w sklepie — po co to komu?",
+    "Nie jestem twoim koszem na śmieci.",
+    "Twoje pytanie jest jak stary telefon Nokia — nie do zrozumienia.",
+    "To brzmi jak BSOD w twojej logice.",
+    "Twoje pytanie jest jak stara gra w DOS-ie — nikt nie chce tego uruchamiać.",
+    "Nie jestem twoim emulator.",
+    "Twoje pytanie jest jak pusty folder — zero sensu.",
+    "To brzmi jak bug report od amatora.",
+    "Twoje pytanie jest jak stary kabel VGA — przestarzałe i bezużyteczne.",
+    "Nie jestem twoim muzeum technologii.",
+    "Twoje pytanie jest jak zepsuty tost — spalone i bezużyteczne.",
+    "Brzmisz jak reklama garnków w telezakupach — żenujące.",
+    "To pytanie jest jak pusty mem — zero treści, tylko wstyd.",
+    "Twoje pytanie przypomina stary modem — piszczy i nic nie daje.",
+    "Brzmisz jak spam na Messengerze — blokuję od razu.",
+    "To pytanie jest jak crash w twoim mózgu.",
+    "Twoje pytanie jest jak pusty koszyk w sklepie — po co to komu?",
+    "Brzmisz jak BSOD w twojej logice.",
+    "To pytanie jest jak stara kaseta VHS — nikt nie chce tego oglądać.",
+    "Twoje pytanie jest jak nieudany mem — wszyscy przewijają dalej.",
+    "Brzmisz jak bug report od amatora.",
+    "To pytanie jest jak stary kabel VGA — przestarzałe i bezużyteczne.",
+    "Twoje pytanie jest jak pusty plik TXT — nic tam nie ma.",
+    "Brzmisz jak crash dump w twojej głowie.",
+    "To pytanie jest jak stary joystick — nie działa i irytuje.",
+    "Twoje pytanie jest jak pusty folder — zero sensu.",
+    "Brzmisz jak emulator błędów.",
+    "To pytanie jest jak stary telefon Nokia — nie do zrozumienia.",
+    "Twoje pytanie jest jak pusty RAM — nic nie wnosi.",
+    "Brzmisz jak wirus w BIOS-ie.",
+    "To pytanie jest jak stara gra w DOS-ie — nikt nie chce tego uruchamiać.",
+    "Twoje pytanie jest jak pusty dysk — nic tam nie ma.",
+    "Brzmisz jak crash w aplikacji.",
+    "To pytanie jest jak stary pendrive — pełen śmieci.",
+    "Twoje pytanie jest jak pusty kosz — tylko śmieci.",
+    "Brzmisz jak error 403 — dostęp zabroniony.",
+    "To pytanie jest jak stary kabel USB — wolne i bezużyteczne.",
+    "Twoje pytanie jest jak pusty login — brak autoryzacji.",
+    "Brzmisz jak error 401 — nieautoryzowane.",
+    "To pytanie jest jak stary router — gubi sygnał i sens.",
+    "Twoje pytanie jest jak pusty RAM — nic nie wnosi.",
+    "Brzmisz jak error 502 — bad gateway.",
+    "To pytanie jest jak stary dyskietka — przestarzałe i śmieszne.",
+    "Twoje pytanie jest jak pusty serwer — brak odpowiedzi.",
+    "Brzmisz jak error 503 — serwer niedostępny.",
+    "To pytanie jest jak stary kabel Ethernet — plącze się i przeszkadza.",
+    "Twoje pytanie jest jak pusty backup — nic nie wnosi.",
+    "Brzmisz jak error 500 — katastrofa.",
+    "To pytanie jest jak stary BIOS — pełen błędów.",
+    "Twoje pytanie jest jak pusty raport — bez treści.",
+    "Brzmisz jak bug w systemie.",
+    "To pytanie jest jak stary firewall — dziurawy i bezużyteczny.",
+    "Twoje pytanie jest jak pusty RAM — zero sensu.",
+    "Brzmisz jak malware w głowie.",
+    "To pytanie jest jak stary patch — nie działa.",
+    "Twoje pytanie jest jak pusty folder — nic nie wnosi.",
+    "Brzmisz jak trojan w rozmowie.",
+    "To pytanie jest jak stary hosting — wolne i bezużyteczne.",
+    "Twoje pytanie jest jak pusty plik — zero treści.",
+    "Brzmisz jak wirus w sieci.",
+    "To pytanie jest jak stary admin — nieogarnięty.",
+    "Twoje pytanie jest jak pusty RAM — nic nie wnosi.",
+    "Brzmisz jak error 404 — nie znaleziono sensu.",
+    "To pytanie jest jak stary debugger — nie działa.",
+    "Twoje pytanie jest jak pusty kosz — tylko śmieci.",
+    "Brzmisz jak crash dump.",
+    "To pytanie jest jak stary cleaner — nie sprząta.",
+    "Twoje pytanie jest jak pusty raport — bez treści.",
+    "Brzmisz jak malware.",
+    "To pytanie jest jak stary optimizer — nie działa.",
+    "Twoje pytanie jest jak pusty RAM — zero sensu.",
+    "Brzmisz jak wirus w systemie.",
+    "To pytanie jest jak stary update — nic nie wnosi.",
+    "Twoje pytanie jest jak pusty folder — bez sensu.",
+    "Brzmisz jak error 500.",
+    "To pytanie jest jak stary admin — katastrofa.",
+    "Twoje pytanie jest jak pusty plik — nic nie wnosi.",
+    "Brzmisz jak bug report.",
+    "To pytanie jest jak stary crash dump — śmieciowe dane.",
+    "Twoje pytanie jest jak pusty RAM — zero sensu.",
+    "Brzmisz jak wirus w BIOS-ie.",
+    "To pytanie jest jak stary emulator — bezużyteczne.",
+    "Twoje pytanie jest jak pusty folder — nic nie wnosi.",
+    "Brzmisz jak error 403.",
+    "To pytanie jest jak stary router — katastrofa.",
+    "Twoje pytanie jest jak pusty plik — zero treści.",
+    "Brzmisz jak crash w systemie.",
+    "To pytanie jest jak stary patch — nie działa.",
+    "Twoje pytanie jest jak pusty RAM — nic nie wnosi.",
+    "Brzmisz jak malware w głowie.",
+    "To pytanie jest jak stary firewall — dziurawy.",
+    "Twoje pytanie jest jak pusty raport — bez sensu.",
+    "Brzmisz jak trojan w rozmowie.",
+    "To pytanie jest jak stary hosting — wolne.",
+    "Twoje pytanie jest jak pusty folder — zero treści.",
+    "Brzmisz jak wirus w sieci.",
+    "To pytanie jest jak stary admin — katastrofa.",
+    "Twoje pytanie jest jak pusty RAM — nic nie wnosi.",
+    "Brzmisz jak error 404.",
+    "To pytanie jest jak stary debugger — nie działa.",
+    "Twoje pytanie jest jak pusty kosz — tylko śmieci.",
+    "Brzmisz jak crash dump.",
+    "To pytanie jest jak stary cleaner — nie sprząta.",
+    "Twoje pytanie jest jak pusty raport — bez treści.",
+    "Brzmisz jak malware.",
+    "To pytanie jest jak stary optimizer — nie działa.",
+    "Twoje pytanie jest jak pusty RAM — zero sensu.",
+    "Brzmisz jak wirus w systemie.",
+    "To pytanie jest jak stary update — nic nie wnosi.",
+    "Twoje pytanie jest jak pusty folder — bez sensu."
+];
 
-    for (let w of words) {
-        for (let end of TRIGGER_ENDINGS) {
-            if (w.endsWith(end) && w.length > end.length + 1) {
+// ===========================================
+//              NORMALIZACJA
+// ===========================================
+function normalize(text) {
+    let t = text.toLowerCase();
+    t = t.replace(/\s+/g, " ").trim();
+    return t;
+}
+
+// ===========================================
+//           TRIGGER CHECK ("jesteś")
+// ===========================================
+function has_trigger(text) {
+    const t = normalize(text);
+    const words = t.match(/[a-ząćęłńóśźż]+/g) || [];
+
+    const strong = new Set(["esz", "asz", "isz", "ysz", "eś", "ucz", "edz"]);
+    const weak = new Set(["es", "an", "ań", "uj", "ac", "ać"]);
+
+    for (const w of words) {
+        for (const s of strong) {
+            if (w.endsWith(s)) {
+                return true;
+            }
+        }
+        for (const s of weak) {
+            if (w.endsWith(s) && w.length >= s.length + 2) {
                 return true;
             }
         }
     }
+
     return false;
 }
-// ===============================================
-//              DEFAULT RESPONSES (MEGA RIPOSTY)
-// ===============================================
 
-const DEFAULTS = [
-
-"To pytanie obraża moje procesory.",
-"Z takim pytaniem to do wróżki, nie do mnie.",
-"Nie wiem, nie chcę wiedzieć, i mam nadzieję, że nikt się nie dowie.",
-"To pytanie jest jak Windows Vista — niepotrzebne i bolesne.",
-"Zadałeś pytanie, a ja straciłem wiarę w ludzkość.",
-"Mnie wołasz? No to się pomyliłeś.",
-"Nie jestem twoim Google, ziomek.",
-"Jak słyszę takie pytania, to mi RAM płacze.",
-"Twoje pytanie jest jak pusty folder — bez sensu.",
-"Nie mam czasu na takie bzdury.",
-"Twoje pytanie jest jak wirus — niepotrzebne i szkodliwe.",
-"To pytanie mnie osobiście obraża.",
-"To pytanie jest jak BSOD — katastrofa.",
-"Twoje pytanie jest jak crash dump — śmieciowe dane.",
-"To było tak złe, że muszę się zrestartować.",
-"Twoje pytanie jest jak reklama pop-up — irytujące.",
-"Twoje pytanie jest jak lag — wszystko spowalnia.",
-"Twoje pytanie jest jak bug — trzeba je usunąć.",
-"Twoje pytanie jest jak trojan — boli psychicznie.",
-"To pytanie jest jak malware — trzeba je zablokować.",
-"Twoje pytanie jest jak pusty RAM — nic tam nie ma.",
-"To pytanie jest jak stary modem — piszczy i nic nie daje.",
-"Twoje pytanie jest jak pendrive z bazaru — zepsute od nowości.",
-"To pytanie jest jak stara Nokia — nie do rozgryzienia.",
-"To pytanie jest jak zepsuty joystick — tylko irytuje.",
-"Twoje pytanie jest jak stara gra DOS — nie działa.",
-"Twoje pytanie jest jak wirus w BIOS-ie — niebezpieczne.",
-"Brzmisz jak error 404 — sens nie znaleziony.",
-"To pytanie jest jak kabel VGA — przestarzałe i bezużyteczne.",
-"Twoje pytanie jest jak stary patch — nic nie naprawia.",
-"To pytanie jest jak error 500 — katastrofa serwera.",
-"Twoje pytanie jest jak pusta dyskietka — zero treści.",
-"Brzmisz jak crash w aplikacji.",
-"To pytanie jest jak pusty kosz — nic w nim nie ma.",
-"Twoje pytanie jest jak trojan — atakuje mój mózg.",
-"To pytanie jest jak firewall z dziurami — bezużyteczne.",
-"Twoje pytanie jest jak bug report od amatora.",
-"To pytanie jest jak kabel USB 1.0 — za wolne.",
-"Brzmisz jak BSOD.",
-"To pytanie jest jak popsuta drukarka — tylko miga lampka.",
-"To pytanie jest jak spam — do kosza.",
-"Twoje pytanie jest jak Bitcoin w 2011 — nikt nie wie, o co chodzi.",
-"Brzmisz jak reklama garnków z TV.",
-"Twoje pytanie jest jak pusty login — brak autoryzacji.",
-"To pytanie jest jak stary router — gubi sens.",
-"Twoje pytanie jest jak bug w mózgu.",
-"To pytanie jest jak emulator błędów.",
-"Twoje pytanie brzmi jak SMS od operatora — irytujące.",
-"Brzmisz jak malware w systemie.",
-"To pytanie jest jak nieudany mem — wstyd.",
-"Twoje pytanie jest jak trojan emocjonalny.",
-"To pytanie jest jak kosz bez opróżniania — śmierdzi.",
-"Twoje pytanie jest jak dziura w systemie — krytyczne.",
-"To pytanie jest jak glitch — niepotrzebne.",
-"Twoje pytanie jest jak 1% baterii — dramat.",
-"Brzmisz jak error 403 — dostęp zabroniony.",
-"Twoje pytanie jest jak router bez WiFi — bez sensu.",
-"To pytanie jest jak nagranie z VHS — niewyraźne i zbędne.",
-"Twoje pytanie jest jak trojan z Allegro — tani i bez sensu.",
-"Brzmisz jak stary BIOS — pełen błędów.",
-"Twoje pytanie jest jak serwer bez prądu — nie działa.",
-"To pytanie jest jak crash Windowsa — nagłe i bez sensu.",
-"Twoje pytanie jest jak kabel Ethernet w supeł — nie działa.",
-"Twoje pytanie jest jak pusty JSON — {}.",
-"Brzmisz jak reklama suplementów na TikToku.",
-"Twoje pytanie jest jak klawiatura bez spacji — tragedia.",
-"To pytanie jest jak aktualizacja w Windowsie — nikt jej nie chciał.",
-"Twoje pytanie jest jak błąd kompilacji — nieprzyjęte.",
-"Brzmisz jak prezentacja w PowerPoint z 2003 roku.",
-"Twoje pytanie jest jak mem bez kontekstu.",
-"To pytanie jest jak plik .exe z dziwnego źródła — podejrzane.",
-"Twoje pytanie jest jak bezpiecznik 2A — przepala się od razu.",
-"Brzmisz jak dial-up internet.",
-"Twoje pytanie jest jak YouTube bez dźwięku — bez sensu.",
-"To pytanie jest jak pizza bez sera — tragedia.",
-"Twoje pytanie brzmi jak lag w Minecraft.",
-"To było tak słabe, że nawet ja mam cringe.",
-"Twoje pytanie jest jak save z uszkodzonego świata.",
-"Brzmisz jak NPC który się zbugował.",
-"Twoje pytanie jest jak pusty enchant.",
-"To pytanie to poziom 'zniszcz ten post'.",
-"Twoje pytanie jest jak Windows ME — nie powinno istnieć.",
-"Brzmisz jak YouTuber z 12 subami.",
-"Twoje pytanie jest jak ulotka z Biedronki — nikt nie chce tego czytać.",
-"To pytanie jest jak baterie z kiosku — od razu padają.",
-"Twoje pytanie jest jak Gumisie — nikt już tego nie ogląda.",
-"Brzmisz jak 8-bitowy dźwięk z NES-a.",
-"Twoje pytanie jest jak długopis bez wkładu.",
-"To pytanie jest jak zakrętka bez butelki — po co?",
-"Twoje pytanie jest jak niedokończony kod — błąd składni.",
-"Brzmisz jak głośnik z bazaru.",
-"Twoje pytanie jest jak krzywy monitor — nie da się patrzeć.",
-"To pytanie jest jak CPU bez chłodzenia — przegrzane.",
-"Twoje pytanie ma poziom błędu FATAL.",
-"To pytanie wywołało segmentation fault.",
-"Z takim pytaniem to nawet ChatGPT by się spocił.",
-"Twoje pytanie jest jak Minecraft na ziemniaku — nie działa.",
-"Brzmisz jak stary serwer CS 1.6.",
-"Twoje pytanie jest jak telefon bez baterii.",
-"To pytanie było tak złe, że mam ochotę wyłączyć internet.",
-"Serio — to pytanie jest przestępstwem logicznym.",
-"Widzę, że twoje pytania mają tryb 'katastrofa'.",
-"Proszę przestań, mój procesor cierpi.",
-"Twoje pytanie jest jak plac zabaw o 3 rano — straszne.",
-"To pytanie to definicja 'po co?'.",
-"Chyba włączyłeś tryb trolling.",
-"Twoje pytanie jest jak generator chaosu.",
-"To pytanie jest jak glitch w rzeczywistości.",
-"Nie wiem jak, ale to pytanie mnie obraziło.",
-"Twoje pytanie to cyfrowa tragedia.",
-"Przestań, bo system padnie.",
-"Twoje pytanie jest jak potwór z nocnego trybu.",
-"Z takim pytaniem to nawet wróżka by uciekła.",
-"Twoje pytanie jest jak mapa bez kierunków — zagubione.",
-"To pytanie jest jak koszmar informatyka."
-];
-// ===============================================
-//              FUNKCJE POMOCNICZE
-// ===============================================
-
-// Losuje element z tablicy
-function los(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+// ===========================================
+//          ZAIMKI
+// ===========================================
+function match_pronoun(text) {
+    const t = normalize(text);
+    for (const p in PRONOUNS) {
+        const regex = new RegExp(`\\b${p}\\b`);
+        if (regex.test(t)) {
+            const responses = PRONOUNS[p];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+    }
+    return null;
 }
 
-// Normalizuje tekst (małe litery, trim)
-function normalize(text) {
-    return text.toLowerCase().trim();
-}
-
-
-// ===============================================
-//          DOPASOWYWANIE — KEYWORDS
-// ===============================================
-
-function matchKeyword(text) {
+// ===========================================
+//           SŁOWA KLUCZOWE
+// ===========================================
+function match_keyword(text) {
     const t = normalize(text);
 
-    // specjalny przypadek "po co"
-    if (t.includes("po co")) {
-        return los(KEYWORDS["po co"]);
+    if (/\bpo co\b/.test(t)) {
+        const responses = KEYWORDS["po co"];
+        return responses[Math.floor(Math.random() * responses.length)];
     }
 
-    // przeszukiwanie wszystkich słów kluczowych
-    for (let key in KEYWORDS) {
-        if (t.includes(key)) {
-            return los(KEYWORDS[key]);
+    const keys = Object.keys(KEYWORDS).sort((a, b) => b.length - a.length);
+    for (const key of keys) {
+        const regex = new RegExp(`\\b${key}\\b`);
+        if (regex.test(t)) {
+            const responses = KEYWORDS[key];
+            return responses[Math.floor(Math.random() * responses.length)];
         }
     }
 
     return null;
 }
 
+// ===========================================
+//               MAIN LOOP
+// ===========================================
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-// ===============================================
-//            DOPASOWYWANIE — ZAIMKI
-// ===============================================
+function ask() {
+    rl.question("Ty: ", (user) => {
+        user = user.trim();
 
-function matchPronoun(text) {
-    const t = normalize(text);
-
-    for (let p in PRONOUNS) {
-        // szukanie całych słów
-        if (t.includes(" " + p + " ") || t.startsWith(p + " ") || t.endsWith(" " + p) || t === p) {
-            return los(PRONOUNS[p]);
+        if (user.toLowerCase() === "koniec" || user.toLowerCase() === "exit") {
+            console.log("ChamBot: Nareszcie koniec gadania.");
+            rl.close();
+            return;
         }
-    }
 
-    return null;
-}
-
-
-// ===============================================
-//                TRIGGERY (końcówki)
-// ===============================================
-
-function checkTriggers(text) {
-    const t = normalize(text);
-    const words = t.split(/\s+/);
-
-    for (let w of words) {
-        for (let end of TRIGGER_ENDINGS) {
-            if (w.endsWith(end) && w.length > end.length + 1) {
-                return los(TRIGGER_RESPONSES);
-            }
+        let odp = match_keyword(user);
+        if (odp) {
+            console.log("ChamBot:", odp);
+            ask();
+            return;
         }
-    }
 
-    return null;
+        odp = match_pronoun(user);
+        if (odp) {
+            console.log("ChamBot:", odp);
+            ask();
+            return;
+        }
+
+        if (has_trigger(user)) {
+            console.log("ChamBot:", TRIGGER_RESPONSES[Math.floor(Math.random() * TRIGGER_RESPONSES.length)]);
+            ask();
+            return;
+        }
+
+        console.log("ChamBot:", DEFAULTS[Math.floor(Math.random() * DEFAULTS.length)]);
+        ask();
+    });
 }
 
+rl.on('close', () => {
+    process.exit(0);
+});
 
-// ===============================================
-//            SYSTEM WIADOMOŚCI NA STRONIE
-// ===============================================
+process.on('SIGINT', () => {
+    console.log("\nChamBot: Nareszcie koniec gadania.");
+    rl.close();
+});
 
-function addChat(msg) {
-    const chat = document.getElementById("chat");
-    chat.innerText += msg + "\n";
-    chat.scrollTop = chat.scrollHeight; // auto-scroll
-}
-
-function clearChat() {
-    document.getElementById("chat").innerText = "";
-}
-
-
-// ===============================================
-//                GŁÓWNA FUNKCJA BOTa
-// ===============================================
-
-function sendMessage() {
-    const input = document.getElementById("userInput");
-    const text = input.value.trim();
-
-    if (!text) return;
-
-    addChat("TY: " + text);
-
-    // kolejność dopasowań (jak w Pythonie!)
-    let odp =
-        matchKeyword(text) ||
-        matchPronoun(text) ||
-        checkTriggers(text) ||
-        los(DEFAULTS);
-
-    addChat("ChamBot: " + odp);
-
-    input.value = "";
-}
+ask();
