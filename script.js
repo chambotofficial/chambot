@@ -313,7 +313,7 @@ const TRIGGER_RESPONSES = [
     "To pytanie pachnie pułapką.",
     "Nie mam dziś trybu 'odpowiadam'.",
     "To pytanie mnie przerasta.",
-    "Nie wiem i nie chcę wiedzieć."
+    "Nie wiem i nie chcę wiedzieć.",
     "Dlaczego wybrałeś mnie do tego pytania?",
     "A niby czemu JA mam wiedzieć?",
     "Po co mnie w to mieszasz?",
