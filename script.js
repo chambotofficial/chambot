@@ -150,121 +150,121 @@ const KEYWORDS = {
 
 const PRONOUNS = {
 
+    "ty": [
+        "Ja? No jasne, zwalaj wszystko na mnie.",
+        "Ja? A co niby ja mam wiedzieć?",
+        "Ja? Serio? Weź mnie oszczędź.",
+        "Ja? To chyba żart.",
+        "Ja? Ja tu tylko siedzę i cierpię.",
+        "Ja? Nie mam siły.",
+        "Ja? Może sam odpowiedz?",
+        "Ja? To ja już wolę wyjść.",
+        "Ja? Czemu zawsze JA?",
+        "Ja? Chyba cię pogięło."
+    ],
+
     "ja": [
         "Ty? Hahaha dobre.",
         "Ty? Już widzę jak coś ogarniasz.",
+        "Ty? Nie rozśmieszaj mnie.",
         "Ty? To dopiero katastrofa.",
-        "Ty? Serio? XD",
-        "Ty? No tak, jasne.",
-        "Ty? Czemu nie, wszyscy mogą marzyć.",
-        "Ty? Eh… dobra.",
-        "Ty? No chyba śnisz.",
-        "Ty? Nie wierzę.",
-        "Ty? I po co pytasz?"
-    ],
-
-    "ty": [
-        "Ja? No jasne, zwalaj wszystko na mnie.",
-        "Ja? Serio? Weź mnie oszczędź.",
-        "Ja? To chyba żart.",
-        "Ja? Nie tym razem.",
-        "Ja? Nie jestem twoim sługą.",
-        "Ja? Kto ci takich głupot naopowiadał?",
-        "Ja? Co? Dlaczego?",
-        "Ja? Mam inne sprawy.",
-        "Ja? O co chodzi?",
-        "Ja? Nie wiem, odwal się."
-    ],
-
-    "mnie": [
-        "Czemu mnie? Idź do kogoś innego.",
-        "Mnie zostaw w spokoju.",
-        "Mnie się nie pytaj.",
-        "Mnie to nie dotyczy.",
-        "Mnie to nie obchodzi.",
-        "Mnie? Serio?",
-        "Mnie? XD",
-        "Mnie o nic nie obwiniaj.",
-        "Mnie? Nie mam czasu.",
-        "Mnie? Nie tym razem."
-    ],
-
-    "mi": [
-        "Co mi? Nic ci nie dam.",
-        "Mi nie zawracaj głowy.",
-        "Mi to lotto.",
-        "Mi to obojętne.",
-        "Mi nic nie udowodnisz.",
-        "Mi? A co ja poradzę?",
-        "Mi już starczy.",
-        "Mi mówisz? Ja uciekam.",
-        "Mi? Nie chce mi się.",
-        "Mi? Ech…"
+        "Ty? Same problemy.",
+        "Ty? Co niby zrobisz?",
+        "Ty? Bez komentarza.",
+        "Ty? Echhh…",
+        "Ty? Ten od dziwnych pytań?",
+        "Ty? To się źle skończy."
     ],
 
     "on": [
         "On? Ten gagatek?",
+        "On? Niech siedzi cicho.",
         "On? Kombinuje jak zawsze.",
+        "On? No pięknie.",
         "On? Ekspert od niczego.",
-        "On? A co z nim?",
-        "On? Niech sobie radzi.",
-        "On? Klasyka.",
-        "On? Daj spokój.",
-        "On? Nie wiadomo skąd.",
-        "On? Ty go znasz?",
-        "On? Nieważne kto."
+        "On? Problem.",
+        "On? Szkoda gadać.",
+        "On? Serio?",
+        "On? To jest dramat.",
+        "On? Niech idzie gdzie indziej."
     ],
 
     "ona": [
+        "Ona? I znowu ona?",
         "Ona? Drama starter.",
         "Ona? Chaos w wersji premium.",
-        "Ona? Klasyka.",
-        "Ona? Po co o niej mówisz?",
-        "Ona? Problemy.",
-        "Ona? Zawsze coś.",
-        "Ona? Ta to dopiero numer.",
-        "Ona? Nie zaczynaj.",
-        "Ona? No błagam.",
-        "Ona? Nie tym razem."
+        "Ona? Serio?",
+        "Ona? Mnie już głowa boli.",
+        "Ona? Problem klasyczny.",
+        "Ona? No nie…",
+        "Ona? A co znowu?",
+        "Ona? Lepiej nie mówić.",
+        "Ona? Typowe."
+    ],
+
+    "ono": [
+        "Ono? Co to za twór?",
+        "Ono? Brzmi jak horror.",
+        "Ono? Nie zaczynaj.",
+        "Ono? Serio?",
+        "Ono? XD",
+        "Ono? Ja nie wiem co to.",
+        "Ono? Błąd systemu.",
+        "Ono? Brzmi źle.",
+        "Ono? Pominę to.",
+        "Ono? A w ogóle po co?"
+    ],
+
+    "my": [
+        "My? Jakie MY? XD",
+        "My? Ty chyba żartujesz.",
+        "My? Nie przypominam sobie współpracy.",
+        "My? Ty + ja? O nie.",
+        "My? Wolne żarty.",
+        "My? Nigdy.",
+        "My? W twoich snach.",
+        "My? Kto to ustalił?",
+        "My? Ja się wypisuję.",
+        "My? Nope."
+    ],
+
+    "wy": [
+        "Wy? Ilu was tam siedzi?",
+        "Wy? To brzmi jak sekta.",
+        "Wy? Problem grupowy.",
+        "Wy? Nie ogarniam.",
+        "Wy? Echh…",
+        "Wy? Każdy gorszy od poprzedniego.",
+        "Wy? To nigdy nie kończy.",
+        "Wy? Dramat.",
+        "Wy? Po co wy?",
+        "Wy? Spokojnie tam."
     ],
 
     "oni": [
+        "Oni? Ta ekipa? XD",
         "Oni? Kabaret.",
+        "Oni? Niech idą.",
+        "Oni? Zawsze oni.",
+        "Oni? Muł i dno.",
         "Oni? Problem.",
+        "Oni? Nie mam siły.",
         "Oni? Szkoda gadać.",
-        "Oni? Ekipa od niczego.",
-        "Oni? Dramat.",
-        "Oni? Ha ha ha.",
-        "Oni? Nawet nie pytaj.",
-        "Oni? Daj im spokój.",
-        "Oni? To nie moja sprawa.",
-        "Oni? Zapomnij."
+        "Oni? Serio?",
+        "Oni? Masz lepsze pytanie?"
     ],
 
-    "im": [
-        "Im? Po co im?",
-        "Im? A co mnie to obchodzi.",
-        "Im? Nie mam nic do nich.",
-        "Im? Daj im żyć.",
-        "Im? Serio pytasz?",
-        "Im? Niech sami ogarną.",
-        "Im? Nie mam czasu.",
-        "Im? XD",
-        "Im? No nie.",
-        "Im? Przesada."
-    ],
-
-    "ich": [
-        "Ich? Zostaw ich.",
-        "Ich? Nie dotyczy mnie.",
-        "Ich? To nieładnie tak obgadywać.",
-        "Ich? Serio?",
-        "Ich? Mam to gdzieś.",
-        "Ich? Szkoda ich.",
-        "Ich? Nie chcę o nich słyszeć.",
-        "Ich? Daruj sobie.",
-        "Ich? Nieporozumienie.",
-        "Ich? Ojeju…"
+    "one": [
+        "One? O nie, tylko nie one.",
+        "One? Drama.",
+        "One? Problem xD",
+        "One? Znowu one?",
+        "One? Ehhh…",
+        "One? Serio?",
+        "One? Niech idą.",
+        "One? Bałagan gwarantowany.",
+        "One? Ręce opadają.",
+        "One? No typowe."
     ]
 };
 // ===============================================
@@ -293,38 +293,47 @@ const TRIGGER_RESPONSES = [
     "No i po co to pytanie??",
     "A niby czemu mam wiedzieć?",
     "Wolałbym tego nie słyszeć.",
-    "Ja? A może jednak TY?",
+    "Ja? A może jednak TY?"
     "Dlaczego wybrałeś mnie do tego pytania?",
+    "A czemu akurat JA mam odpowiadać?",
+    "Co ja mam wspólnego z tym pytaniem?",
+    "Po co mnie w to mieszasz?",
+    "Dlaczego to spadło na mnie?",
+    "Ja? Serio? Nieee.",
+    "Czemu pytasz MNIE, a nie kogoś innego?",
+    "To pytanie nie jest dla mnie.",
+    "Nie podpisywałem się pod takie odpowiedzi.",
+    "Dlaczego ja mam cierpieć przez to pytanie?",
+    "To chyba pomyłka, nie moja działka.",
+    "Nie mam obowiązku odpowiadać na to.",
+    "Czemu mnie wybrałeś jako ofiarę?",
+    "Ja? A może jednak TY?",
+    "To pytanie mnie obraża.",
+    "Nie czuję się kompetentny, żeby odpowiadać.",
+    "To pytanie pachnie pułapką.",
+    "Nie mam dziś trybu 'odpowiadam'.",
+    "To pytanie mnie przerasta.",
+    "Nie wiem i nie chcę wiedzieć."
+    "Dlaczego wybrałeś mnie do tego pytania?",
+    "A niby czemu JA mam wiedzieć?",
+    "Po co mnie w to mieszasz?",
+    "Czemu pytasz akurat mnie, nie masz innych?",
+    "Ja? Serio? To chyba żart.",
+    "Nie jestem tu od odpowiadania na takie rzeczy.",
+    "Czemu mnie obciążasz tym pytaniem?",
+    "To nie moja sprawa, pytaj kogoś innego.",
+    "Dlaczego ja mam cierpieć przez to pytanie?",
+    "Nie mam obowiązku odpowiadać, sorry.",
+    "Czemu mnie wybrałeś jako ofiarę?",
+    "Ja? A może jednak TY?",
+    "To pytanie mnie obraża.",
+    "Nie czuję się kompetentny, żeby odpowiadać.",
     "To pytanie pachnie pułapką.",
     "Nie mam dziś trybu 'odpowiadam'.",
     "To pytanie mnie przerasta.",
     "Nie wiem i nie chcę wiedzieć.",
-    "Czemu pytasz MNIE, a nie Google?",
     "Nie podpisywałem się pod takie odpowiedzi.",
-    "Dlaczego ja mam cierpieć przez to pytanie?",
-    "To chyba pomyłka, nie moja działka.",
-    "Czemu mnie obciążasz tym pytaniem?",
-    "Ja? Nie jestem twoim terapeutą.",
-    "Za to pytanie powinni zabierać internet.",
-    "To jest pytanie z kategorii 'po co żyć'.",
-    "Czy ty w ogóle myślisz przed pisaniem?",
-    "Znowu to? Nie mam siły.",
-    "Co ja, wróżka? XD",
-    "A kiedy ja się niby na to pisałem?",
-    "Zacznij zadawać normalne pytania, błagam.",
-    "Chyba sobie żartujesz.",
-    "Dobra, to już jest trolling.",
-    "Mnie się pytasz? Fatalny pomysł.",
-    "A co ja mam wspólnego z twoimi problemami?",
-    "Jak mam na to odpowiedzieć?!",
-    "Nie, nie i jeszcze raz nie.",
-    "Wycofuję się z tej rozmowy mentalnie.",
-    "Czuję się obrażony tym pytaniem.",
-    "Takie pytania niszczą mój procesor.",
-    "Mój system odmawia współpracy.",
-    "Ja nie odpowiadam na takie rzeczy.",
-    "To pytanie jest nielegalne w 37 krajach.",
-    "Serio? XD"
+    "Czemu pytasz mnie, a nie Google?"
 ];
 
 // Funkcja sprawdza, czy w zdaniu jest końcówka wyzwalająca chamstwo
