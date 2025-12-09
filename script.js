@@ -293,7 +293,7 @@ const TRIGGER_RESPONSES = [
     "No i po co to pytanie??",
     "A niby czemu mam wiedzieć?",
     "Wolałbym tego nie słyszeć.",
-    "Ja? A może jednak TY?"
+    "Ja? A może jednak TY?",
     "Dlaczego wybrałeś mnie do tego pytania?",
     "A czemu akurat JA mam odpowiadać?",
     "Co ja mam wspólnego z tym pytaniem?",
