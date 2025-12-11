@@ -54,6 +54,11 @@ const KEYWORDS = {
         "Dokąd los poniesie."
     ],
 
+    "menca": [
+        "notka od twórcy chambota: najlepszy przyjaciel człowiek z którym nigdy na kosza nie wychodziłem na siłe tylko zawsze z pogodą ducha i radością że wreszcie wyszedł ( a bywa różnie xd ) . Dziękuję temu człowiekowi że przez 13 lat nie znudziłem mu sie :) dobra możesz wracać do rozmowy z chambotem"
+        
+   ],
+    
     "skąd": [
         "Skądś.", "Znikąd.", "Z mema.", "Z powietrza.", "Skąd? Z głowy.",
         "Skądś dziwnego.", "Z internetu, wiadomo.", "Skądś, gdzie nie byłem.",
