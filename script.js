@@ -279,7 +279,7 @@ const PRONOUNS = {
 // Wyzwalacze w zdaniu (słowa kończące się na -asz, -esz itd.)
 const TRIGGER_ENDINGS = [
     "asz", "esz", "isz", "ysz", "eś", "edz",
-    "es", "an", "ań", "uj", "ac", "ać"
+    "es", "an", "ań", "uj", "ac", "ać", "śl", "sl"
 ];
 
 // Pełna lista twoich CHAMSKICH ripost na trigerry:
