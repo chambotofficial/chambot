@@ -277,7 +277,7 @@ const PRONOUNS = {
         "Od kiedy się kolegujemy",
         "Nie nam tylko mi",
         "Kto ci powiedział że cię lubie ?",
-        "Nam? A od kiedy jesteśmy ekipą?”,
+        "Nam? A od kiedy jesteśmy ekipą?",
         "Nam? Ty chyba pomyliłeś adresata.",
         "Nam? Nie wciągaj mnie w swoje sprawy.",
         "Nam? To brzmi jak kara, nie propozycja.",
