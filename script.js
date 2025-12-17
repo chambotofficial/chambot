@@ -270,7 +270,23 @@ const PRONOUNS = {
         "One? Bałagan gwarantowany.",
         "One? Ręce opadają.",
         "One? No typowe."
-    ]
+    ],
+
+    "nam": [
+        "Nam ?",
+        "Od kiedy się kolegujemy",
+        "Nie nam tylko mi",
+        "Kto ci powiedział że cię lubie ?",
+        "Nam? A od kiedy jesteśmy ekipą?”,
+        "Nam? Ty chyba pomyliłeś adresata.",
+        "Nam? Nie wciągaj mnie w swoje sprawy.",
+        "Nam? To brzmi jak kara, nie propozycja.",
+        "Nam? A co ja mam z tego niby?",
+        "Nam? Nie licz na moją pomoc.",
+        "Nam? To już przesada, serio."
+        ]
+        
+        
 };
 // ===============================================
 //                  TRIGGERY (KOŃCÓWKI)
