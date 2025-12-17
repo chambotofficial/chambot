@@ -284,7 +284,7 @@ const PRONOUNS = {
         "Nam? A co ja mam z tego niby?",
         "Nam? Nie licz na moją pomoc.",
         "Nam? To już przesada, serio."
-        ]
+    ] 
         
         
 };
