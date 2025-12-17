@@ -520,15 +520,15 @@ function matchKeyword(text) {
         return los(KEYWORDS["po co"]);
     }
 
-    // przeszukiwanie wszystkich słów kluczowych
     for (let key in KEYWORDS) {
-        if (t.includes(key)) {
+        const regex = new RegExp(`(^|\\s)${key}(\\s|$)`);
+        if (regex.test(t)) {
             return los(KEYWORDS[key]);
         }
     }
 
     return null;
-}
+} 
 
 
 // ===============================================
