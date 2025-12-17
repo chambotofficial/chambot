@@ -591,3 +591,13 @@ function sendMessage() {
 
     input.value = "";
 }
+
+// ===============================================
+//      WYSYŁANIE WIADOMOŚCI KLAWISZEM ENTER
+// ===============================================
+
+document.getElementById("userInput").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+});
